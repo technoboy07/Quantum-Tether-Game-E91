@@ -1,0 +1,24 @@
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #0e1730; color: #f3f4f6; }
+#ui { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; gap: 12px; align-items: center; z-index: 2; }
+#ui h1 { font-size: 18px; margin: 0 8px 0 0; color: #bfdbfe; }
+.panel { background: #0f1e3f; border: 1px solid #274281; border-radius: 10px; padding: 8px 10px; display: flex; gap: 8px; align-items: center; box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+.panel.row { gap: 16px; }
+#game { display: block; width: 900px; height: 540px; margin: 80px auto 20px; background: #10214a; border: 2px solid #274281; border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,0.35); }
+#status { color: #fde68a; }
+button { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(59,130,246,0.35); }
+button:hover { filter: brightness(1.06); }
+button:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; }
+input { background: #0b1a3a; color: #f3f4f6; border: 1px solid #3659a7; padding: 6px 8px; border-radius: 8px; width: 260px; }
+
+.comm { position: absolute; min-width: 520px; max-width: 720px; background: #0b1634; border: 1px solid #2a4b97; border-radius: 12px; box-shadow: 0 16px 32px rgba(0,0,0,0.45); z-index: 3; }
+.comm.hidden { display: none; }
+.comm-header { padding: 8px 10px; border-bottom: 1px solid #2a4b97; color: #c7d2fe; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+.comm-header .close { background: #ef4444; border-radius: 8px; padding: 4px 10px; font-weight: 800; }
+.comm-body { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; }
+.comm-col { display: flex; flex-direction: column; gap: 8px; }
+.comm-label { color: #bfdbfe; font-size: 12px; }
+.enc-preview { background: #0a1630; border: 1px dashed #3253a1; border-radius: 8px; padding: 8px; min-height: 58px; color: #e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; white-space: pre-wrap; word-break: break-word; }
+.e91-log { background: #0a1630; border: 1px solid #3253a1; border-radius: 8px; padding: 8px; height: 148px; overflow: auto; color: #e5e7eb; font-size: 12px; }
+
+.notify { position: absolute; width: 34px; height: 34px; border-radius: 50%; background: #fde047; color: #0b0f19; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(0,0,0,0.45); z-index: 3; cursor: pointer; border: 1px solid #d1a700; }
+.notify.hidden { display: none; }

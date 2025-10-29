@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Tether: E91 QKD Battle</title>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<div id="ui">
+		<h1>Tether: E91 QKD Battle</h1>
+		<div class="panel">
+			<label>Message to Control Center:</label>
+			<input id="messageInput" type="text" placeholder="Type your message..." />
+			<button id="sendBtn">Send Securely</button>
+		</div>
+		<div class="panel row">
+			<label><input id="eveToggle" type="checkbox" /> Eavesdropper present (Eve)</label>
+			<span id="status">Status: Idle</span>
+		</div>
+	</div>
+	<div id="commPanel" class="comm hidden">
+		<div class="comm-header">
+			<span id="commTitle">Drone Link: Tank ↔ Control Center</span>
+			<button id="commClose" class="close">×</button>
+		</div>
+		<div class="comm-body">
+			<div class="comm-col">
+				<div class="comm-label" id="panelPrompt">Type message</div>
+				<input id="panelMessage" type="text" placeholder="Your secure message..." />
+				<button id="panelSend">Send via QKD</button>
+				<div id="encPreview" class="enc-preview"></div>
+			</div>
+			<div class="comm-col">
+				<div class="comm-label">E91 Visualization</div>
+				<pre id="e91Log" class="e91-log"></pre>
+			</div>
+		</div>
+	</div>
+	<canvas id="game" width="900" height="540"></canvas>
+	<script src="qkd.js"></script>
+	<script src="game.js"></script>
+</body>
+</html>
