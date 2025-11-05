@@ -36,6 +36,9 @@ function simulateE91Detailed(opts) {
 	const aliceOutcomes = randomBits(pairCount);
 	const bobOutcomes = new Uint8Array(pairCount);
 
+	// Build a preview array of pairs so the UI can visualize per-pair effects
+	const pairs = [];
+
 	for (let i = 0; i < pairCount; i++) {
 		const basesMatch = aliceBases[i] === bobBases[i];
 		let bit;
@@ -52,6 +55,18 @@ function simulateE91Detailed(opts) {
 			// Incompatible bases: uncorrelated
 			bobOutcomes[i] = Math.random() < 0.5 ? 0 : 1;
 		}
+
+		// store a lightweight preview of this pair for visualization
+		const altered = basesMatch && (aliceOutcomes[i] !== bobOutcomes[i]);
+		pairs.push({
+			index: i,
+			aliceBase: aliceBases[i],
+			bobBase: bobBases[i],
+			aliceOutcome: aliceOutcomes[i],
+			bobOutcome: bobOutcomes[i],
+			basesMatch,
+			altered // true when the pair was effectively changed (e.g., by Eve)
+		});
 	}
 
 	// Sifting: keep positions where bases match
@@ -77,15 +92,16 @@ function simulateE91Detailed(opts) {
 	const chshViolated = sValue > 2.0;
 
 	const logs = [];
-	for (let i = 0; i < Math.min(logLimit, siftedPositions.length); i++) {
-		const idx = siftedPositions[i];
-		logs.push(`Pair ${i}: Alice(${BASES[aliceBases[idx]]}°)=${aliceOutcomes[idx]} Bob(${BASES[bobBases[idx]]}°)=${bobOutcomes[idx]}`);
+	// Use the pairs preview to generate human-readable logs
+	for (let i = 0; i < Math.min(logLimit, pairs.length); i++) {
+		const p = pairs[i];
+		logs.push(`Pair ${p.index}: Alice(${BASES[p.aliceBase]}°)=${p.aliceOutcome} Bob(${BASES[p.bobBase]}°)=${p.bobOutcome}`);
 	}
 	logs.push(`Sifting kept ${siftedPositions.length} pairs`);
 	logs.push(`QBER = ${(qber * 100).toFixed(2)}% , CHSH S = ${sValue.toFixed(2)} ${chshViolated ? '(violation)' : '(no violation)'}`);
 	if (breach) logs.push('Channel insecure: abort key'); else logs.push('Channel secure: key established');
 
-	return { aliceKey, bobKey, qber, S: sValue, chshViolated, breach, kept: siftedPositions.length, logs };
+	return { aliceKey, bobKey, qber, S: sValue, chshViolated, breach, kept: siftedPositions.length, logs, pairsPreview: pairs.slice(0, Math.min(24, pairs.length)) };
 }
 
 function deriveOtpKeyBits(keyBits, byteLen) {
